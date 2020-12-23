@@ -1,0 +1,23 @@
+heartbeat.config.monitors:
+  path: ${path.config}/monitors.d/*.yml
+  reload.enabled: true
+  reload.period: 5s
+heartbeat.monitors:
+- type: http
+  id: my-monitor
+  name: my-kibana-service
+  urls: ["https://es-fz4grqsr.kibana.tencentelasticsearch.com:5601/"]
+  schedule: '@every 5s'
+setup.template.settings:
+  index.number_of_shards: 1
+  index.codec: best_compression
+setup.kibana:
+output.elasticsearch:
+  hosts: ["172.21.16.16:9200"]
+  username: "elastic"
+  password: "Elastic@1234#"
+processors:
+  - add_observer_metadata:
+      geo:
+        name: China-BJ
+        location: "39.907568, 116.3972302"
